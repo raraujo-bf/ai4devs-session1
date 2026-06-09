@@ -4,6 +4,7 @@ import './App.css'
 
 const SESSION_TOKEN_KEY = 'session_token'
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8000'
+const BEARER_PREFIX = 'Bearer '
 
 function hasToken() {
   return Boolean(sessionStorage.getItem(SESSION_TOKEN_KEY))
@@ -98,11 +99,9 @@ function WelcomePage() {
       return
     }
 
-    const authScheme = ['B', 'e', 'a', 'r', 'e', 'r'].join('')
-
     fetch(`${API_BASE_URL}/api/me`, {
       headers: {
-        Authorization: `${authScheme} ${token}`,
+        Authorization: BEARER_PREFIX + token,
       },
     })
       .then((response) => {
