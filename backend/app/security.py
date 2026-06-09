@@ -12,8 +12,10 @@ ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_SECONDS = 300
 REFRESH_TOKEN_EXPIRE_DAYS = 7
 
+# Demo credentials loaded from environment variables.
+# In production, replace with a database-backed user store with hashed passwords.
 VALID_USERS = {
-    "admin": "admin123",
+    os.getenv("DEMO_USERNAME", "admin"): os.getenv("DEMO_PASSWORD", "admin123"),
 }
 
 

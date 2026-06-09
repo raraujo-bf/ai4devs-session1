@@ -60,7 +60,7 @@ def refresh_token(request: RefreshRequest):
         usuario = payload.get("sub")
         if not usuario:
             raise HTTPException(status_code=401, detail="Invalid or expired refresh token")
-    except jwt.PyJWTError:
+    except jwt.exceptions.PyJWTError:
         raise HTTPException(status_code=401, detail="Invalid or expired refresh token")
 
     access_token = create_access_token({"sub": usuario})
@@ -83,7 +83,7 @@ def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(securit
         usuario = payload.get("sub")
         if not usuario:
             raise HTTPException(status_code=401, detail="Invalid or expired token")
-    except jwt.PyJWTError:
+    except jwt.exceptions.PyJWTError:
         raise HTTPException(status_code=401, detail="Invalid or expired token")
 
     return UserInfo(usuario=usuario)
